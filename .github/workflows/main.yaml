@@ -26,7 +26,7 @@ jobs:
       with:
         generate-branches-badge: true
         generate-coverage-badge: true
-    - name: Upload ocverage badge to DigitalOcean spaces
+    - name: Upload coverage badge to DigitalOcean spaces
       uses: BetaHuhn/do-spaces-action@v2
       with: 
         access_key: ${{ secrets.ACCESS_KEY }}
