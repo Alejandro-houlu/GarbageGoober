@@ -29,7 +29,6 @@ class GarbageGooberApplicationTests {
 		if(user1.isEmpty()){
 		User user = new User();
 		user.setUsername("Alejandro");
-
 		userRepo.save(user);
 		}
 

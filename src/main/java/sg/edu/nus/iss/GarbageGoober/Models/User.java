@@ -23,6 +23,15 @@ public class User {
     private String email;
     private String profilePicUrl;
     private String phoneNumber;
+    private Boolean enabled;
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = true;
+    }
 
     @Enumerated(EnumType.STRING)
     private Roles role;
