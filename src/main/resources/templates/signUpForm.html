@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/application.css}" />
+    <title>Sign up</title>
+</head>
+<body>
+<div class="container-fluid text-center">
+	<div>
+		<img th:src="@{/images/mainLogo.png}" class="logo" /><br><br>
+	</div>
+    <h2>Create An Account</h2>
+	<div th:if="${param.error}">
+		<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
+	</div>
+	<form th:action="@{/home/saveUser}" method="post" style="max-width:550px; margin: 0 auto;" th:object="${user}" enctype="multipart/form-data">
+		<div class = "border border-secondary p-3 rounded">
+			<p>Access the trench</p>
+			<div class="row mt-4">
+                <div class="col">
+				    <input type="text" name="username" class="form-control" placeholder="Username" th:field="*{username}" required autofocus />
+			    </div>
+			<div class="col">
+				<input type="tel" name="phoneNumber" class="form-control" placeholder="Phone Number" th:field="*{phoneNumber}" pattern="[0-9]{8}" required />
+			</div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <input type="email" name="email" class="form-control" placeholder="Email" th:field="*{email}" required />
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+				    <select class="form-control" name="country" id="country">
+                            <option value="" selected disabled hidden>Select country</option>
+                        <option th:each="country:${countries}" th:value="${country}" th:text="${country}"></option>
+                    </select>
+                </div>
+                <div class="col">
+				    <input type="tel" name="Address" class="form-control" placeholder="Postal code" pattern="[0-9]{6}" th:field="*{address}" required />
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" th:field="*{password}" required />
+                </div>
+                <div class="col">
+                    <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Confirm Password" required />
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <h5>Profile picture</h5>
+                    <input type="file" name="rawImage" id="rawImage" class="form-control" accept="image/*">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col">
+                    <input type="radio" name="role" id="collector" th:field="*{role}" value="COLLECTOR" required/>
+                        <label for="collector">Collector</label>
+                    <input type="radio" name="role" id="recycler" th:field="*{role}" value="RECYCLER"/>
+                        <label for="recycler">Recycler</label>
+                </div>
+            </div>
+            
+			<div class="actions mt-4 mb-3">
+				<input type="submit" value="Sign up" class="btn btn-primary" />
+			</div>
+
+
+		
+		</div>
+	
+	</form>
+
+	    <div th:replace="Fragments/footer.html"></div>
+		
+</div>
+<script>
+        var password = document.getElementById("password")
+        , confirm_password = document.getElementById("confirm_password");
+
+        function validatePassword(){
+        if(password.value != confirm_password.value) {
+            confirm_password.setCustomValidity("Passwords Don't Match");
+        } else {
+            confirm_password.setCustomValidity('');
+        }
+        }
+
+        password.onchange = validatePassword;
+        confirm_password.onkeyup = validatePassword;
+</script>
+</body>
+</html>

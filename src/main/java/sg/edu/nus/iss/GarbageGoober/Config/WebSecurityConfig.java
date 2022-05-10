@@ -46,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
-		auth.userDetailsService(userDetailsService);
+		auth.userDetailsService(userDetailsService());
 	}
 
     @Override
@@ -59,7 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
                 .loginPage("/home/login")
-                .usernameParameter("email")
+                .usernameParameter("email").permitAll()
+                .defaultSuccessUrl("/profile/")
                 .failureUrl("/home/login?error")
                 .permitAll()
             .and()

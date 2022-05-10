@@ -23,18 +23,18 @@ public class User {
     private String email;
     private String profilePicUrl;
     private String phoneNumber;
-    private Boolean enabled;
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = true;
-    }
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     private Roles role;
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = true;
+    }
 
     @OneToMany(mappedBy = "recycler")
     private Collection<RecyclingList> recyclingLists;
