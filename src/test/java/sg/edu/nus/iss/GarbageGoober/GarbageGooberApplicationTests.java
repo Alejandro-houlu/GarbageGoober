@@ -24,13 +24,7 @@ class GarbageGooberApplicationTests {
 	@Test
 	void addUserShouldPass(){
 
-		Optional<User> user1 = userRepo.findById(1L);
-
-		if(user1.isEmpty()){
-		User user = new User();
-		user.setUsername("Alejandro");
-		userRepo.save(user);
-		}
+		Optional<User> user1 = userRepo.findById(3L);
 
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>" + user1.get().getUsername());
 
