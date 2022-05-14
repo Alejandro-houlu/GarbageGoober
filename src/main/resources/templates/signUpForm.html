@@ -18,6 +18,7 @@
 	<div th:if="${param.error}">
 		<p class="text-danger">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</p>
 	</div>
+
 	<form th:action="@{/home/saveUser}" method="post" style="max-width:550px; margin: 0 auto;" th:object="${user}" enctype="multipart/form-data">
 		<div class = "border border-secondary p-3 rounded">
 			<p>Access the trench</p>
@@ -44,7 +45,7 @@
                     </select>
                 </div>
                 <div class="col">
-				    <input type="tel" name="Address" class="form-control" placeholder="Postal code" pattern="[0-9]{6}" th:field="*{address}" required />
+				    <input type="tel" name="postalCode" id="postalCode" class="form-control" placeholder="Postal code" pattern="[0-9]{6}" required />
                 </div>
             </div>
 

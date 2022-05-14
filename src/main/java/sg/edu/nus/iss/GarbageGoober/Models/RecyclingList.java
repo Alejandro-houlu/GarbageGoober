@@ -12,13 +12,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RecyclingList {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long listId;
-    private String address;
 
     @Enumerated(EnumType.ORDINAL)
     private Status status;
@@ -26,8 +26,7 @@ public class RecyclingList {
     private String remarks;
     private Date pickUpDate;
     private Time collectionTime;
-    private Float latitude;
-    private Float longtitude;
+
 
     @ManyToOne
     private User recycler;
@@ -35,12 +34,8 @@ public class RecyclingList {
     @OneToMany(mappedBy = "list")
     private Collection<Item> items;
 
-    @Override
-    public String toString() {
-        return "RecyclingList [address=" + address + ", collectionTime=" + collectionTime + ", items=" + items
-                + ", latitude=" + latitude + ", listId=" + listId + ", longtitude=" + longtitude + ", pickUpDate="
-                + pickUpDate + ", recycler=" + recycler + ", remarks=" + remarks + ", status=" + status + "]";
-    }
+    @ManyToOne
+    private Address address;
 
     public Long getListId() {
         return listId;
@@ -48,14 +43,6 @@ public class RecyclingList {
 
     public void setListId(Long listId) {
         this.listId = listId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Status getStatus() {
@@ -90,22 +77,6 @@ public class RecyclingList {
         this.collectionTime = collectionTime;
     }
 
-    public Float getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Float latitude) {
-        this.latitude = latitude;
-    }
-
-    public Float getLongtitude() {
-        return longtitude;
-    }
-
-    public void setLongtitude(Float longtitude) {
-        this.longtitude = longtitude;
-    }
-
     public User getRecycler() {
         return recycler;
     }
@@ -120,6 +91,21 @@ public class RecyclingList {
 
     public void setItems(Collection<Item> items) {
         this.items = items;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "RecyclingList [address=" + address + ", collectionTime=" + collectionTime + ", items=" + items
+                + ", listId=" + listId + ", pickUpDate=" + pickUpDate + ", recycler=" + recycler + ", remarks="
+                + remarks + ", status=" + status + "]";
     }
 
     

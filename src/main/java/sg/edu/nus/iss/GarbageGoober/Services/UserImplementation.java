@@ -1,6 +1,7 @@
 package sg.edu.nus.iss.GarbageGoober.Services;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import sg.edu.nus.iss.GarbageGoober.Models.Address;
 import sg.edu.nus.iss.GarbageGoober.Models.User;
 import sg.edu.nus.iss.GarbageGoober.Repositories.UserRepository;
 
@@ -33,17 +35,12 @@ public class UserImplementation implements UserInterface{
 
         Optional<User> opt = userRepo.findByEmail(user.getEmail());
         if(!opt.isEmpty()){
-            return "Sorry, this user already exist";
+            return "Sorry, this user already exists";
         }
         
         return "";
     }
 
-    @Override
-    public String validateUserAddress(User user) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public Boolean saveNewUser(User user) {
@@ -54,8 +51,11 @@ public class UserImplementation implements UserInterface{
         user.setPassword(encodedPassword);
         user.setEnabled(true);
 
-        
+        try {
         userRepo.save(user);
+        } catch (Exception ex) {
+            return false;
+        }
 
         return true;
     }
@@ -90,5 +90,7 @@ public class UserImplementation implements UserInterface{
         return url;
 
     }
+
+
     
 }

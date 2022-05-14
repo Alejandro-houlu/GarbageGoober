@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User {
@@ -19,7 +20,6 @@ public class User {
 
     private String username;
     private String password;
-    private String address;
     private String email;
     private String profilePicUrl;
     private String phoneNumber;
@@ -39,12 +39,8 @@ public class User {
     @OneToMany(mappedBy = "recycler")
     private Collection<RecyclingList> recyclingLists;
 
-    @Override
-    public String toString() {
-        return "User [address=" + address + ", email=" + email + ", password=" + password + ", phoneNumber="
-                + phoneNumber + ", profilePicUrl=" + profilePicUrl + ", recyclingLists=" + recyclingLists + ", role="
-                + role + ", userId=" + userId + ", username=" + username + "]";
-    }
+    @OneToOne(mappedBy = "user")
+    private Address address;
 
     public Long getUserId() {
         return userId;
@@ -68,14 +64,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getEmail() {
@@ -117,6 +105,23 @@ public class User {
     public void setRecyclingLists(Collection<RecyclingList> recyclingLists) {
         this.recyclingLists = recyclingLists;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "User [address=" + address + ", email=" + email + ", enabled=" + enabled + ", password=" + password
+                + ", phoneNumber=" + phoneNumber + ", profilePicUrl=" + profilePicUrl + ", recyclingLists="
+                + recyclingLists + ", role=" + role + ", userId=" + userId + ", username=" + username + "]";
+    }
+    
+
 
     
     
