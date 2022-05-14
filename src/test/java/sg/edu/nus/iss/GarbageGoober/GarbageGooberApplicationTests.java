@@ -24,7 +24,7 @@ class GarbageGooberApplicationTests {
 	@Test
 	void addUserShouldPass(){
 
-		Optional<User> user1 = userRepo.findById(3L);
+		Optional<User> user1 = userRepo.findById(1L);
 
 		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>" + user1.get().getUsername());
 
