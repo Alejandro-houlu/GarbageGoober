@@ -56,14 +56,13 @@ public class HomeController {
 	@GetMapping("/signUp")
 	public ModelAndView signUp(Model model){
 
-		ModelAndView mav = new ModelAndView("signupForm.html");
+		ModelAndView mav = new ModelAndView("signUpForm.html");
 		User user = new User();
 		List<String> countries = new ArrayList<>();
 		countries.add("Singapore");countries.add("Malaysia");
 
 		mav.addObject("user", user);
 		mav.addObject("countries", countries);
-
 		mav.setStatus(HttpStatus.OK);
 
 		return mav;
