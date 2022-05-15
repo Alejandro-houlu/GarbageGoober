@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.GarbageGoober.Config.MyUserDetails;
+import sg.edu.nus.iss.GarbageGoober.Models.User;
 
 @Controller
 @RequestMapping("/profile")
@@ -15,6 +16,10 @@ public class ProfileController {
     @GetMapping("/")
     public ModelAndView home(@AuthenticationPrincipal MyUserDetails userDetails){
         ModelAndView mav = new ModelAndView("dashboard.html");
+        User user = userDetails.getUser();
+        mav.addObject("user", user);
+
+        
 
         return mav;
     }
