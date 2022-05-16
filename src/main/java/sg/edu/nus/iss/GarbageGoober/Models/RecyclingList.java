@@ -2,6 +2,7 @@ package sg.edu.nus.iss.GarbageGoober.Models;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -26,10 +27,14 @@ public class RecyclingList {
     private String remarks;
     private Date pickUpDate;
     private Time collectionTime;
+    private Timestamp created;
 
 
     @ManyToOne
     private User recycler;
+
+    @ManyToOne
+    private User collector;
 
     @OneToMany(mappedBy = "list")
     private Collection<Item> items;
@@ -101,12 +106,24 @@ public class RecyclingList {
         this.address = address;
     }
 
+    
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
     @Override
     public String toString() {
-        return "RecyclingList [address=" + address + ", collectionTime=" + collectionTime + ", items=" + items
-                + ", listId=" + listId + ", pickUpDate=" + pickUpDate + ", recycler=" + recycler + ", remarks="
-                + remarks + ", status=" + status + "]";
+        return "RecyclingList [address=" + address + ", collectionTime=" + collectionTime + ", created=" + created
+                + ", items=" + items + ", listId=" + listId + ", pickUpDate=" + pickUpDate + ", recycler=" + recycler
+                + ", remarks=" + remarks + ", status=" + status + "]";
     }
+
+
 
     
     

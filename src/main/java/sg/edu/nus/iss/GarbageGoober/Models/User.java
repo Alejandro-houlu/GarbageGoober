@@ -39,6 +39,9 @@ public class User {
     @OneToMany(mappedBy = "recycler")
     private Collection<RecyclingList> recyclingLists;
 
+    @OneToMany(mappedBy = "collector")
+    private Collection<RecyclingList> collectionLists;
+
     @OneToOne(mappedBy = "user")
     private Address address;
 
@@ -114,13 +117,22 @@ public class User {
         this.address = address;
     }
 
+    public Collection<RecyclingList> getCollectionLists() {
+        return collectionLists;
+    }
+
+    public void setCollectionLists(Collection<RecyclingList> collectionLists) {
+        this.collectionLists = collectionLists;
+    }
+
     @Override
     public String toString() {
-        return "User [address=" + address + ", email=" + email + ", enabled=" + enabled + ", password=" + password
-                + ", phoneNumber=" + phoneNumber + ", profilePicUrl=" + profilePicUrl + ", recyclingLists="
-                + recyclingLists + ", role=" + role + ", userId=" + userId + ", username=" + username + "]";
+        return "User [address=" + address + ", collectionLists=" + collectionLists + ", email=" + email + ", enabled="
+                + enabled + ", password=" + password + ", phoneNumber=" + phoneNumber + ", profilePicUrl="
+                + profilePicUrl + ", recyclingLists=" + recyclingLists + ", role=" + role + ", userId=" + userId
+                + ", username=" + username + "]";
     }
-    
+
 
 
     

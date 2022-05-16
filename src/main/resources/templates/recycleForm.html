@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form.css}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="container">
+       <div th:replace="Fragments/layout.html :: navMenu"></div> 
+
+        <!-- main -->
+        <div class="main">
+            <div th:replace="Fragments/layout.html :: navTopBar"></div> 
+
+
+            <!-- Start here -->
+	<form th:action="@{/recycle/saveList}" method="post" style="max-width:550px; margin: 0 auto;" enctype="multipart/form-data">
+		<div class="form">
+			<h2>New list</h2>
+                <div id="survey_options">
+                    <input type="text" onload="getDate()" onfocus="(this.type='date')" onblur="(this.type='text')" class="survey_options" id="date" name="date" placeholder="Pick up date" onsubmit="(this.type='date')" required>
+                    <input type="text" name="time" class="survey_options" id="time" onfocus="(this.type='time')" placeholder="Collection time" onsubmit="(this.type='time')" required >
+                    <input type="text" name="remarks" class="survey_options" size="50" placeholder="Remarks" id="remarks">
+                    <div id="addItems[0]" class="survey_options">
+                        <h3>Items</h3>
+                            <div class="survey_options[0]" style="display: flex;" id="radioBtn">
+                                <input type="radio" name="material[0]" id="metal[0]" value="METAL" required/>
+                                    <label for="collector">Metal</label>
+                                <input type="radio" name="material[0]" id="glass[0]"  value="GLASS"/>
+                                    <label for="recycler">Glass</label>
+                                <input type="radio" name="meterial[0]" id="plastic[0]"  value="PLASTIC"/>
+                                    <label for="recycler">Plastic</label>
+                                <input type="radio" name="material[0]" id="paper[0]"  value="PAPER"/>
+                                    <label for="recycler">Paper</label>
+                                <input type="radio" name="material[0]" id="cardboard[0]"  value="CARDBOARD"/>
+                                    <label for="recycler">Cardboard</label>
+                            </div>
+                    <input type="number" name="weight[0]" id="weight[0]" class="survey_options" size="50" placeholder="Weight">
+                    <input type="text" name="description[0]" id="description[0]" class="survey_options" size="50" placeholder="Item description e.g. cup etc..." >
+                </div>
+                </div>
+
+                <div class="controls">
+                    <a href="#" id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                    <a href="#" id="remove_fields"><i class="fa fa-plus"></i>Remove Field</a>
+                </div>
+        </div>
+                
+        <input type="submit" value="Submit" class="btn" style="cursor: pointer">
+
+                <script th:src="@{/js/script.js}"></script>
+	</form>
+
+        </div>
+    </div>
+<script>
+
+    //Menu Toggle
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+
+    toggle.onclick = function(){
+        navigation.classList.toggle('active')
+        main.classList.toggle('active')
+    }
+
+    //add hovered class in selected list item
+    let list =document.querySelectorAll('.navigation li');
+    function activeLink(){
+        list.forEach((item) =>
+        item.classList.remove('hovered'));
+        this.classList.add('hovered');
+    }
+    list.forEach((item)=>
+    item.addEventListener('mouseover',activeLink));
+</script>
+    
+</body>

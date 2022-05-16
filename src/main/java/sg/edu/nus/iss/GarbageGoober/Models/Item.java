@@ -1,6 +1,8 @@
 package sg.edu.nus.iss.GarbageGoober.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,12 +14,15 @@ public class Item {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itemId;
 
-    private String material;
+    @Enumerated(EnumType.STRING)
+    private Materials material;
+
     private String remarks;
     private Float weight;
 
     @ManyToOne
     private RecyclingList list;
+
 
     @Override
     public String toString() {
@@ -33,11 +38,12 @@ public class Item {
         this.itemId = itemId;
     }
 
-    public String getMaterial() {
+
+    public Materials getMaterial() {
         return material;
     }
 
-    public void setMaterial(String material) {
+    public void setMaterial(Materials material) {
         this.material = material;
     }
 
