@@ -4,6 +4,6 @@
 
 ![Coverage](https://alejandrobucket.sgp1.digitaloceanspaces.com/coverage/GarbageGoober/jacoco.svg)
 
-### Heroku app: https://git.heroku.com/garbage-goober.git
+### Heroku app: https://garbage-goober.herokuapp.com
 
 
