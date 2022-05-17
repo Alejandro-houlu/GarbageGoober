@@ -18,8 +18,8 @@ import sg.edu.nus.iss.GarbageGoober.Repositories.LocationRepository;
 public class LocationImplementation implements LocationInterface{
 
     private String apiUrl = "https://maps.googleapis.com/maps/api";
-    // @Value("$(OPEN_GOOGLE_MAP)")
-    String apiKey = "AIzaSyAvWeaEpYdx0CRVg18W348eUT_ZTZl9z6w";
+    @Value("$(OPEN_GOOGLE_MAP)")
+    String apiKey;
 
     @Autowired
     LocationRepository locationRepo;
