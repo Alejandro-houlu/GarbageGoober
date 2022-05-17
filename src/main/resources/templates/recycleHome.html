@@ -30,6 +30,43 @@
                     </div>
                 </div>
             </a>
+        
+        <div th:if="${lists == null}">
+            <div class="details">
+                <div class="recentOrders">
+                    <div class="cardHeader">
+                        <h2>My lists</h2>
+                        <!-- <a href="#" class="btn">View All</a> -->
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Time created</td>
+                                <td>Pick up Date</td>
+                                <td>Collection Time</td>
+                                <td>No of items</td>
+                                <td>Status</td>
+                                <td>Collector</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Create</td>
+                                <td>Your</td>
+                                <td>First</td>
+                                <td>Recycling List</td>
+                                <td>Now!</td>
+                                <td><span class="status delivered">Save the enviroment</span></td>
+                                <td> :) </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div th:unless="${lists == null}">
 
             <div class="details">
                 <div class="recentOrders">
@@ -44,25 +81,30 @@
                                 <td>Time created</td>
                                 <td>Pick up Date</td>
                                 <td>Collection Time</td>
+                                <td>No of items</td>
                                 <td>Total weight</td>
                                 <td>Status</td>
                                 <td>Collector</td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>dateTime</td>
-                                <td>02/05/2022</td>
-                                <td>1300</td>
-                                <td>10KG</td>
-                                <td><span class="status delivered">Taken</span></td>
-                                <td>Collector name</td>
+                            <tr th:each="list : ${lists}">
+                                <td th:text="${list.listId}"/>
+                                <td th:text="${#strings.substring(list.created,0,16)}"/>
+                                <td th:text="${list.pickUpDate}"/>
+                                <td th:text="${#strings.substring(list.collectionTime,0,5)}"/>
+                                <td th:text="${#aggregates.sum(list.items.![#lists.size(itemId)])}"/>
+                                <td th:text= "${#numbers.formatDecimal(#aggregates.sum(list.items.![weight]),1,1)} + KG"/>
+                                <td th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></td>
+                                <td th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></td>
+                                <td th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></td>
+                                <td> :) </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+        </div>
 
         </div>
     </div>
@@ -87,6 +129,7 @@
     }
     list.forEach((item)=>
     item.addEventListener('mouseover',activeLink));
+
 </script>
     
 </body>

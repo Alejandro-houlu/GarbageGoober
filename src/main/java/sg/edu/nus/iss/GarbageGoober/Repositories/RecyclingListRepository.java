@@ -1,17 +1,16 @@
 package sg.edu.nus.iss.GarbageGoober.Repositories;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import sg.edu.nus.iss.GarbageGoober.Models.RecyclingList;
 import sg.edu.nus.iss.GarbageGoober.Models.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface RecyclingListRepository extends JpaRepository<RecyclingList, Long> {
 
-    public Optional<User> findByEmail (String email);
-    public User getUserByEmail(String email);
-
+    public List<RecyclingList> findAllByRecycler(User user);
     
 }

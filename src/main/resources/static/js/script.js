@@ -9,7 +9,19 @@ add_more_fields.onclick = function(){
     var newField = document.getElementById(test2.id);
     var divClone = newField.cloneNode(true);
     var index = newField.id.substring(newField.id.length - 2, newField.id.length - 1);
-    divClone.id = divClone.id.substring(0,divClone.id.length - 3) + "[" + (parseInt(index) + 1) + "]"; 
+    divClone.id = divClone.id.substring(0,divClone.id.length - 3) + "[" + (parseInt(index) + 1) + "]";
+    var cloneTags = divClone.getElementsByClassName("survey_options[0]");
+
+    var radioBtn = cloneTags[0].getElementsByTagName('input');
+    for(let item of radioBtn){
+        item.name = item.name.substring(0,item.name.length - 3) + "[" + (parseInt(index) + 1) + "]"
+    }
+
+    for(var i = 1; i < cloneTags.length; i++){
+        cloneTags[i].name = cloneTags[i].name.substring(0,cloneTags[i].name.length - 3) + "[" + (parseInt(index) + 1) + "]"
+    }
+
+
     survey_options.appendChild(divClone);
 }
 

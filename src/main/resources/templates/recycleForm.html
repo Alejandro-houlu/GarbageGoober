@@ -21,7 +21,7 @@
 
 
             <!-- Start here -->
-	<form th:action="@{/recycle/saveList}" method="post" style="max-width:550px; margin: 0 auto;" enctype="multipart/form-data">
+	<form th:action="@{/recycle/saveList}" method="post" style="max-width:550px; margin: 0 auto;">
 		<div class="form">
 			<h2>New list</h2>
                 <div id="survey_options">
@@ -31,19 +31,24 @@
                     <div id="addItems[0]" class="survey_options">
                         <h3>Items</h3>
                             <div class="survey_options[0]" style="display: flex;" id="radioBtn">
+
                                 <input type="radio" name="material[0]" id="metal[0]" value="METAL" required/>
-                                    <label for="collector">Metal</label>
+                                    <label for="metal[0]">Metal</label>
+
                                 <input type="radio" name="material[0]" id="glass[0]"  value="GLASS"/>
-                                    <label for="recycler">Glass</label>
-                                <input type="radio" name="meterial[0]" id="plastic[0]"  value="PLASTIC"/>
-                                    <label for="recycler">Plastic</label>
+                                    <label for="glass[0]">Glass</label>
+
+                                <input type="radio" name="material[0]" id="plastic[0]"  value="PLASTIC"/>
+                                    <label for="plastic[0]">Plastic</label>
+
                                 <input type="radio" name="material[0]" id="paper[0]"  value="PAPER"/>
-                                    <label for="recycler">Paper</label>
+                                    <label for="paper[0]">Paper</label>
+
                                 <input type="radio" name="material[0]" id="cardboard[0]"  value="CARDBOARD"/>
-                                    <label for="recycler">Cardboard</label>
+                                    <label for="cardboard[0]">Cardboard</label>
                             </div>
-                    <input type="number" name="weight[0]" id="weight[0]" class="survey_options" size="50" placeholder="Weight">
-                    <input type="text" name="description[0]" id="description[0]" class="survey_options" size="50" placeholder="Item description e.g. cup etc..." >
+                    <input type="number" name="weight[0]" id="weight[0]" class="survey_options[0]" size="50" step="0.1" placeholder="Weight">
+                    <input type="text" name="description[0]" id="description[0]" class="survey_options[0]" size="50" placeholder="Item description e.g. cup etc..." >
                 </div>
                 </div>
 

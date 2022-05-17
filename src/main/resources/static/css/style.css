@@ -399,7 +399,7 @@ body
     text-align: center;
 }
 
-.status.delivered
+.status.available
 {
     padding: 2px 4px;
     background: #8de02c;
@@ -408,7 +408,7 @@ body
     font-size: 14px;
     font-weight: 500;
 }
-.status.pending
+.status.inprogress
 {
     padding: 2px 4px;
     background: #f9ca3f;
@@ -417,7 +417,7 @@ body
     font-size: 14px;
     font-weight: 500;
 }
-.status.return
+.status.taken
 {
     padding: 2px 4px;
     background: #f00;

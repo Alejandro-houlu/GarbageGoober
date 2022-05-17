@@ -1,26 +1,43 @@
 package sg.edu.nus.iss.GarbageGoober.Controllers;
 
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.GarbageGoober.Config.MyUserDetails;
+import sg.edu.nus.iss.GarbageGoober.Models.Item;
+import sg.edu.nus.iss.GarbageGoober.Models.RecyclingList;
 import sg.edu.nus.iss.GarbageGoober.Models.User;
+import sg.edu.nus.iss.GarbageGoober.Services.RecycleInterface;
 
 @Controller
 @RequestMapping("/recycle")
 public class RecycleController {
 
+    @Autowired
+    RecycleInterface recycleSvc;
+
     @GetMapping("/")
     public ModelAndView home(@AuthenticationPrincipal MyUserDetails userDetails){
         ModelAndView mav = new ModelAndView("recycleHome.html");
-
         User user = userDetails.getUser();
+        List<RecyclingList> list = recycleSvc.findAllByRecycler(user);
+
+        //test
+        list.stream().forEach(System.out::println);
+
         mav.addObject("user", user);
+        mav.addObject("lists", list);
         mav.setStatus(HttpStatus.OK);
 
         return mav;
@@ -32,6 +49,37 @@ public class RecycleController {
         User user = userDetails.getUser();
         mav.addObject("user", user);
 
+        return mav;
+    }
+
+    @PostMapping("/saveList")
+    public ModelAndView saveList(@AuthenticationPrincipal MyUserDetails userDetails, @RequestBody MultiValueMap<String, String> payload){
+        ModelAndView mav = new ModelAndView("recycleHome.html");
+        User user = userDetails.getUser();
+        mav.addObject("user", user);
+
+        //test
+        //Set<String> keys = payload.keySet();
+        //keys.stream().forEach(x->System.out.println(payload.get(x)));
+
+        RecyclingList list = recycleSvc.createListFromPayLoad(user, payload);
+
+        //test
+        // System.out.println(list);
+        // for(Item i : list.getItems()){
+        //     System.out.println(i);
+        // }
+
+        //save to db
+        if(!recycleSvc.saveList(list)){
+            mav.setStatus(HttpStatus.BAD_REQUEST);
+            throw new IllegalArgumentException("Save list failed");
+        }
+        List<RecyclingList> rlist = recycleSvc.findAllByRecycler(user);
+        mav.addObject("lists",rlist);
+
+
+        
         return mav;
     }
     

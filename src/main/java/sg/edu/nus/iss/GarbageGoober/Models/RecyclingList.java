@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class RecyclingList {
@@ -21,7 +20,7 @@ public class RecyclingList {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long listId;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     private String remarks;
@@ -118,12 +117,11 @@ public class RecyclingList {
 
     @Override
     public String toString() {
-        return "RecyclingList [address=" + address + ", collectionTime=" + collectionTime + ", created=" + created
-                + ", items=" + items + ", listId=" + listId + ", pickUpDate=" + pickUpDate + ", recycler=" + recycler
-                + ", remarks=" + remarks + ", status=" + status + "]";
+        return "RecyclingList [collectionTime=" + collectionTime + ", created=" + created + ", listId=" + listId
+                + ", pickUpDate=" + pickUpDate + ", remarks=" + remarks + ", status=" + status + "]";
     }
 
-
+    
 
     
     
