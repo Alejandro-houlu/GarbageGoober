@@ -57,12 +57,14 @@
             </div>
 
             <!-- Detail list -->
+
             <div class="details">
                 <div class="recentOrders">
                     <div class="cardHeader">
                         <h2>My recent lists</h2>
-                        <a href="#" class="btn">View All</a>
+                        <a th:href="@{/recycle/}" class="btn">View All</a>
                     </div>
+                <div th:unless="${lists.empty}">
                     <table>
                         <thead>
                             <tr>
@@ -73,16 +75,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>02/05/2022</td>
-                                <td>1300</td>
-                                <td><span class="status delivered">Taken</span></td>
+                            <tr th:each="list : ${lists}">
+                                <td th:text="${list.listId}"></td>
+                                <td th:text="${list.pickUpDate}"></td>
+                                <td th:text="${#strings.substring(list.collectionTime,0,5)}"></td>
+                                <td th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></td>
+                                <td th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></td>
+                                <td th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                </div>
             </div>
+
         </div>
     </div>
 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="container1">
+       <div th:replace="Fragments/layout.html :: navMenu"></div> 
+
+        <!-- main -->
+        <div class="main">
+            <div th:replace="Fragments/layout.html :: navTopBar"></div> 
+
+
+            <!-- Start here -->
+        <div id="map"></div>
+
+        <div class="cardBox">
+            <div class="card" th:each="dm : ${dmLists}" th:onClick="'javascript:openListModal(\''+${dm.recyclingList[0].recycler.userId} + '\');'">
+                <div>
+                    <div class="content" th:text="${dm.distance} + ' km away'"></div>
+                    <div class="cardName" th:text="${dm.duration} + ' away'"></div>
+                    <div class="cardName" th:text="${#lists.size(dm.recyclingList)} + ' list(s) available'"></div>
+                </div>
+                <div class="iconBx">
+                    <ion-icon name="receipt-outline"></ion-icon>
+                </div>
+            </div>
+        </div>
+        <div id="recyclerListViewSection"></div>
+
+                    <!-- 
+                    The `defer` attribute causes the callback to execute after the full HTML
+                    document has been parsed. For non-blocking uses, avoiding race conditions,
+                    and consistent behavior across browsers, consider loading using Promises
+                    with https://www.npmjs.com/package/@googlemaps/js-api-loader.
+                    -->
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvWeaEpYdx0CRVg18W348eUT_ZTZl9z6w&callback=initMap&v=weekly"defer></script>
+
+                        </div>
+                    </div>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
+
+    <script th:inline="javascript">
+
+    //Menu Toggle
+    let toggle = document.querySelector('.toggle');
+    let navigation = document.querySelector('.navigation');
+    let main = document.querySelector('.main');
+
+    const singapore = { lat: 1.352083, lng: 103.819836 };
+    const userLocation = /*[[${userLocation}]]*/ null;
+    const locations = /*[[${locations}]]*/ null;
+    console.log(userLocation);
+
+
+    toggle.onclick = function(){
+        navigation.classList.toggle('active')
+        main.classList.toggle('active')
+    }
+
+    //add hovered class in selected list item
+    let list =document.querySelectorAll('.navigation li');
+    function activeLink(){
+        list.forEach((item) =>
+        item.classList.remove('hovered'));
+        this.classList.add('hovered');
+    }
+    list.forEach((item)=>
+    item.addEventListener('mouseover',activeLink));
+
+//     function initMap() {
+
+//     const map = new google.maps.Map(document.getElementById("map"), {
+//         zoom: 12,
+//         center: userLocation,
+//         // center: singapore,
+//     });
+
+//     const marker = new google.maps.Marker({
+//         position: userLocation,
+//         icon: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+//         map: map,
+//     });
+//     const features = [];
+//     for(let i = 0; i < locations.length; i++){
+//         features.push(locations[i]);
+//     }
+
+//     for (let i = 0; i < features.length; i++) {
+//         const marker = new google.maps.Marker({
+//         position: features[i],
+//         map: map,
+//         });
+//     }
+
+//     window.initMap = initMap;
+
+// }
+
+function initMap() {
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 12,
+    center:userLocation,
+  });
+  const infoWindow = new google.maps.InfoWindow({
+    content: "",
+    disableAutoPan: true,
+  });
+    const locationss = [];
+    for(let i = 0; i < locations.length; i++){
+        locationss.push(locations[i]);
+    }
+    const marker = new google.maps.Marker({
+        position: userLocation,
+        icon: "http://maps.google.com/mapfiles/kml/paddle/grn-circle.png",
+        map: map,
+    });
+
+  const markers = locationss.map((position, i) => {
+    // const label1 = labels[i].address;
+    const marker = new google.maps.Marker({
+      position,
+    });
+
+    marker.addListener("click", () => {
+    //   infoWindow.setContent();
+      infoWindow.open(map, marker);
+    });
+    return marker;
+  });
+
+const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
+}
+window.initMap = initMap;
+
+</script>
+<script>
+function openListModal(userId) {
+		
+	$.ajax({
+        type: "GET",
+		url: "/collect/findListByUserId/"+userId,
+		success: function(response){
+
+            $('#recyclerListViewSection').html(response);
+            $('#myCollectorModal').modal("show");
+				
+		}
+			
+	});
+}
+</script>
+    
+</body>

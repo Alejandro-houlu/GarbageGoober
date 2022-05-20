@@ -12,5 +12,6 @@ import sg.edu.nus.iss.GarbageGoober.Models.User;
 public interface RecyclingListRepository extends JpaRepository<RecyclingList, Long> {
 
     public List<RecyclingList> findAllByRecycler(User user);
+
     
 }

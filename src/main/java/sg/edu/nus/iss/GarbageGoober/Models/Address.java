@@ -83,7 +83,7 @@ public class Address {
     @Override
     public String toString() {
         return "Address [addressId=" + addressId + ", lat=" + lat + ", lng=" + lng + ", placeId=" + placeId
-                + ", postalCode=" + postalCode + ", recyclingList=" + recyclingList + ", user=" + user + "]";
+                + ", postalCode=" + postalCode + ", user=" + user.getUserId() + "]";
     }
     public static Optional<Address> createModel(String resp){
 

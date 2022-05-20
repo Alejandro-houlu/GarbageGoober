@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -83,6 +84,14 @@ public class RecycleImplementation implements RecycleInterface{
     public List<RecyclingList> findAllByRecycler(User user) {
         
         return recycleRepo.findAllByRecycler(user);
+        
+    }
+
+    @Override
+    public Optional<RecyclingList> findByListId(Long id) {
+        
+        return recycleRepo.findById(id);
+        
         
     }
 

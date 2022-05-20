@@ -1,7 +1,6 @@
 package sg.edu.nus.iss.GarbageGoober.Controllers;
 
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,13 +8,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import sg.edu.nus.iss.GarbageGoober.Config.MyUserDetails;
-import sg.edu.nus.iss.GarbageGoober.Models.Item;
 import sg.edu.nus.iss.GarbageGoober.Models.RecyclingList;
 import sg.edu.nus.iss.GarbageGoober.Models.User;
 import sg.edu.nus.iss.GarbageGoober.Services.RecycleInterface;
@@ -82,5 +81,19 @@ public class RecycleController {
         
         return mav;
     }
+
+    @GetMapping("/findByListId/{id}")
+    public ModelAndView findByListId(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long id){
+    
+        ModelAndView mav = new ModelAndView("/Fragments/listView.html");
+        RecyclingList list = recycleSvc.findByListId(id).get();
+
+        mav.addObject("list", list);
+
+        return mav;
+
+
+    }
+
     
 }

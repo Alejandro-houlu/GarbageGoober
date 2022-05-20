@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap');
 *
 {
+    
     margin:0;
     padding:0;
     box-sizing:border-box;
@@ -15,13 +16,18 @@
     --grey:#f5f5f5;
     --black1:#222;
     --black2:#999;
-    --green: rgb(79, 223, 43); 
+    --green: rgb(72, 189, 134); 
 }
 
 body
 {
     min-height: 100vh;
     overflow-x: hidden;
+}
+.container1
+{
+    position: relative;
+    width: 100%;
 }
 .container
 {
@@ -273,7 +279,7 @@ body
     padding: 20px;
     display: grid;
 }
-.cardBox2 .card
+.cardBox2 .card2
 {
     position: relative;
     background: var(--white);
@@ -284,31 +290,31 @@ body
     cursor: pointer;
     box-shadow: 0 7px 25px rgba(0,0,0,0.08);
 }
-.cardBox2 .card .content
+.cardBox2 .card2 .content
 {
     position: relative;
     font-weight: 500;
     font-size: 2.5em;
     color: var(--blue);
 }
-.cardBox2 .card .cardName
+.cardBox2 .card2 .cardName
 {
     color: var(--black2);
     font-size: 1.1em;
     margin-top: 5px;
 }
-.cardBox2 .card .iconBx
+.cardBox2 .card2 .iconBx
 {
     font-size: 3.5em;
     color: var(--black2);
 }
-.cardBox2 .card:hover
+.cardBox2 .card2:hover
 {
     background: var(--blue);
 }
-.cardBox2 .card:hover .content,
-.cardBox2 .card:hover .cardName,
-.cardBox2 .card:hover .iconBx
+.cardBox2 .card2:hover .content,
+.cardBox2 .card2:hover .cardName,
+.cardBox2 .card2:hover .iconBx
 {
     color: var(--white);
 }
@@ -378,7 +384,7 @@ body
 
 .details .recentOrders table tbody tr:hover
 {
-    background: var(--blue);
+    background: var(--green);
     color: var(--white) ;
 }
 .details .recentOrders table tr td
@@ -434,6 +440,12 @@ body
     border-radius: 4px;
     font-size: 14px;
     font-weight: 500;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+
 }
 
 
