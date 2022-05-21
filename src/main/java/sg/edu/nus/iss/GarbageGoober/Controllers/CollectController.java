@@ -103,7 +103,7 @@ public class CollectController {
 
     @GetMapping("/findListByUserId/{userId}")
     public ModelAndView findListByUserId(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long userId){
-        ModelAndView mav = new ModelAndView("/Fragments/collectorView.html");
+        ModelAndView mav = new ModelAndView("collectorView.html");
 
         List<RecyclingList> rlists = collectSvc.findListByUserId(userId);
 

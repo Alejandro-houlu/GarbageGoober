@@ -97,19 +97,5 @@ public class RecycleController {
 
 
     }
-
-    @GetMapping("/test/{id}")
-    public ModelAndView test(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long id){
-    
-        //ModelAndView mav = new ModelAndView("/Fragments/listView.html");
-        //RecyclingList list = recycleSvc.findByListId(id).get();
-
-        ModelAndView mav = new ModelAndView("test.html");
-        mav.addObject("id",id);
-
-        return mav;
-
-
-    }
     
 }
