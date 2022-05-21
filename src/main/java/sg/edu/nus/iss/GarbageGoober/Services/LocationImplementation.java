@@ -26,7 +26,8 @@ import sg.edu.nus.iss.GarbageGoober.Repositories.LocationRepository;
 public class LocationImplementation implements LocationInterface{
 
     private String apiUrl = "https://maps.googleapis.com/maps/api";
-    @Value("$(OPEN_GOOGLE_MAP)")
+
+    @Value("${OPEN_GOOGLE_MAP}")
     String apiKey;
 
     @Autowired
@@ -86,6 +87,8 @@ public class LocationImplementation implements LocationInterface{
     public List<DistanceMatrix> getDistanceMatrix(List<Address> closestAddresses, Address userAddress) {
         
         List<DistanceMatrix> distanceMatrixList = new ArrayList<>();
+
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>API KEY" + apiKey);
 
         for(Address a : closestAddresses){
 
