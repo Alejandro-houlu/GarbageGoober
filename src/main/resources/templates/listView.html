@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel = "stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css" 
+        integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    
+	<div class="modal fade" id="myContactModal" tabindex="-1" role="dialog" th:fragment="modalContents">
+		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">List details</h5>
+					<button type="button" class="btn-close" data-dismiss="modal"
+						aria-label="Close">
+					</button>
+				</div>
+				<div class="modal-body">
+					<p th:text="'List ID: ' + ${list.listId} + ', ' + ${list.remarks}"></p>
+                    <p th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></p>
+                    <p th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></p>
+                    <p th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></p>
+					<p th:text="'Picked up date: ' + ${list.pickUpDate}"></p>
+					<p th:text="'Collection time: ' + ${#strings.substring(list.collectionTime,0,5)}"></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Material &nbsp;&nbsp;</th>
+                                <th>Weight &nbsp;&nbsp;</th>
+                                <th>Description &nbsp;&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+					        <tr th:each="item : ${list.items}">
+                                <td th:text="${item.material}"><span>&nbsp;&nbsp;</span></td>
+                                <td th:text="${item.weight} + 'KG'"><span>&nbsp;&nbsp;</span></td>
+                                <td th:text="${item.remarks}"><span>&nbsp;&nbsp;</span></td>
+                            </tr>
+                    </tbody>
+                    </table>
+
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-secondary"
+						data-bs-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

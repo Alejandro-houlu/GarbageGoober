@@ -87,7 +87,8 @@ public class RecycleController {
     @GetMapping("/findByListId/{id}")
     public ModelAndView findByListId(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long id){
     
-        ModelAndView mav = new ModelAndView("/Fragments/listView.html");
+        // ModelAndView mav = new ModelAndView("/Fragments/listView.html");
+        ModelAndView mav = new ModelAndView("listView.html");
         RecyclingList list = recycleSvc.findByListId(id).get();
 
         mav.addObject("list", list);
