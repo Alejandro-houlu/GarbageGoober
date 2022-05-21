@@ -2,6 +2,8 @@ package sg.edu.nus.iss.GarbageGoober.Controllers;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonCreator.Mode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -95,5 +97,18 @@ public class RecycleController {
 
     }
 
+    @GetMapping("/test/{id}")
+    public ModelAndView test(@AuthenticationPrincipal MyUserDetails userDetails, @PathVariable Long id){
+    
+        //ModelAndView mav = new ModelAndView("/Fragments/listView.html");
+        //RecyclingList list = recycleSvc.findByListId(id).get();
+
+        ModelAndView mav = new ModelAndView("test.html");
+        mav.addObject("id",id);
+
+        return mav;
+
+
+    }
     
 }
