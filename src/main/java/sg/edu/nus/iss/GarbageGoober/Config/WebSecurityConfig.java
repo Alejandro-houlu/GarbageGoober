@@ -52,7 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-            .antMatchers("/images/**","/css/**","/home**","/**","/js/**","/webjars/**").permitAll()
+            .antMatchers("/images/**","/css/**","/home**","/**","/js/**","/webjars/**","/recycle/findListById/{id}").permitAll()
             .antMatchers("/home").permitAll()
             .anyRequest()
             .authenticated()
