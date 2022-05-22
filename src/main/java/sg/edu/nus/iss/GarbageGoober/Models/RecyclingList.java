@@ -49,6 +49,14 @@ public class RecyclingList {
         this.listId = listId;
     }
 
+    public User getCollector() {
+        return collector;
+    }
+
+    public void setCollector(User collector) {
+        this.collector = collector;
+    }
+
     public Status getStatus() {
         return status;
     }

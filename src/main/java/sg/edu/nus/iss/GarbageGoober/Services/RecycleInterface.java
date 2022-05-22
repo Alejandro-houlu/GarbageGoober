@@ -14,5 +14,12 @@ public interface RecycleInterface {
     public Boolean saveList(RecyclingList rlist);
     public List<RecyclingList> findAllByRecycler(User user);
     public Optional<RecyclingList> findByListId(Long id);
+    public void saveCollectionReq (User user, RecyclingList rList);
+    public List<RecyclingList> getIncomingReq (User user);
+    public List<RecyclingList> getOutgoingReq (User user);
+    public void confirmRequest(RecyclingList rlist);
+    public void rejectRequest(RecyclingList rlist);
+    public List<RecyclingList> getDiscardList(User user);
+    public List<RecyclingList> getCollectionList(User user);
 
 }

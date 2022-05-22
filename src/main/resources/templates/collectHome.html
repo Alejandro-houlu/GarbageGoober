@@ -149,7 +149,7 @@ function openListModal(userId) {
 		
 	$.ajax({
         type: "GET",
-		url: "/collect/findListByUserId/"+userId,
+		    url: "/collect/findListByUserId/"+userId,
 		success: function(response){
 
             $('#recyclerListViewSection').html(response);

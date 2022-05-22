@@ -328,6 +328,26 @@ body
     grid-gap: 30px;
     /* margin-top: 10px; */
 }
+.details1
+{
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+
+    grid-gap: 30px;
+    /* margin-top: 10px; */
+}
+.details1 .recentOrders
+{
+    position: relative;
+    display: grid;
+    min-height: 500px;
+    background: var(--white);
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0,0,0,0.08);
+    border-radius: 20px;
+}
 .details .recentOrders
 {
     position: relative;
@@ -405,6 +425,51 @@ body
     text-align: center;
 }
 
+.details1 table
+{
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.details1 table thead td{
+    font-weight: 600;
+    /* padding-bottom: 10px; */
+
+}
+.details1 .recentOrders table tr
+{
+    color: var(--black1);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.details1 .recentOrders table tr:last-child
+{
+    border-bottom: none;
+}
+
+.details1 .recentOrders table tbody tr:hover
+{
+    background: var(--green);
+    color: var(--white) ;
+}
+.details1 .recentOrders table tr td
+{
+    padding: 10px;
+}
+
+.details1 .recentOrders table tr td:last-child
+{
+    text-align: end;
+}
+.details1 .recentOrders table tr td:nth-child(2)
+{
+    text-align: end;
+}
+.details1 .recentOrders table tr td:nth-child(3)
+{
+    text-align: center;
+}
 .status.available
 {
     padding: 2px 4px;
@@ -414,7 +479,7 @@ body
     font-size: 14px;
     font-weight: 500;
 }
-.status.inprogress
+.status.requested
 {
     padding: 2px 4px;
     background: #f9ca3f;

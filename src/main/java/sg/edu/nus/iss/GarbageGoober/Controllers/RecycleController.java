@@ -55,7 +55,7 @@ public class RecycleController {
 
     @PostMapping("/saveList")
     public ModelAndView saveList(@AuthenticationPrincipal MyUserDetails userDetails, @RequestBody MultiValueMap<String, String> payload){
-        ModelAndView mav = new ModelAndView("recycleHome.html");
+        ModelAndView mav = new ModelAndView("redirect:/recycle/");
         User user = userDetails.getUser();
         mav.addObject("user", user);
 

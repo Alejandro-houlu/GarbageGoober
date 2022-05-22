@@ -107,7 +107,9 @@
                                 <td th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></td>
                                 <td th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></td>
                                 <td th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></td>
-                                <td> :) </td>
+                                <td th:if="${list.status.toString() == 'REQUESTED'}"><span class="status requested" th:text="${list.status}"></span></td>
+                                <td th:if="${list.collector == null}"></td>
+                                <td th:unless="${list.collector == null}"><span class="status available" th:text="${list.collector.username}"></span></td>
                                 <!-- <td><a th:href="@{/recycle/findListById/(id=${list.listId})}" class="btn viewBtn">View</a></td> -->
 
                             </tr>

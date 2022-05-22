@@ -95,6 +95,77 @@ public class RecycleImplementation implements RecycleInterface{
         
     }
 
+    @Override
+    @Transactional
+    public void saveCollectionReq(User user, RecyclingList rList) {
+
+        rList.setStatus(Status.REQUESTED);
+        rList.setCollector(user);
+
+        try {
+            recycleRepo.save(rList);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+       
+        
+    }
+
+    @Override
+    public List<RecyclingList> getIncomingReq(User user) {
+
+        List<RecyclingList> resultList = new ArrayList<>();
+
+        List<RecyclingList> tempList = recycleRepo.findAllByRecycler(user);
+
+        tempList.stream().filter(x-> x.getStatus() == Status.REQUESTED).forEach(x->resultList.add(x));
+
+
+        return resultList;
+    }
+
+    @Override
+    public List<RecyclingList> getOutgoingReq(User user) {
+
+        List<RecyclingList> resultList = new ArrayList<>();
+
+        List<RecyclingList> tempList = recycleRepo.findAllByCollector(user);
+
+        tempList.stream().filter(x->x.getStatus() == Status.REQUESTED).forEach(x->resultList.add(x));
+
+        return resultList;
+    }
+
+    @Override
+    public void confirmRequest(RecyclingList rlist) {
+       
+        rlist.setStatus(Status.IN_PROGRESS);
+        recycleRepo.save(rlist);
+        
+    }
+
+    @Override
+    public void rejectRequest(RecyclingList rlist) {
+
+        rlist.setStatus(Status.AVAILABLE);
+        rlist.setCollector(null);
+        recycleRepo.save(rlist);
+        
+    }
+
+    @Override
+    public List<RecyclingList> getDiscardList(User user) {
+        
+        return recycleRepo.findAllByRecyclerAndStatus(user, Status.IN_PROGRESS);
+    }
+
+    @Override
+    public List<RecyclingList> getCollectionList(User user) {
+        
+        return recycleRepo.findAllByCollectorAndStatus(user, Status.IN_PROGRESS);
+    }
+
 
     
 }

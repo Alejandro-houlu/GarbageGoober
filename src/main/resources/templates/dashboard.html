@@ -82,6 +82,7 @@
                                 <td th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></td>
                                 <td th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></td>
                                 <td th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></td>
+                                <td th:if="${list.status.toString() == 'REQUESTED'}"><span class="status requested" th:text="${list.status}"></span></td>
                             </tr>
                         </tbody>
                     </table>

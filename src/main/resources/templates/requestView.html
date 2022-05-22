@@ -12,16 +12,16 @@
 </head>
 <body>
     
-	<div class="modal fade" id="myCollectorModal" tabindex="-1" role="dialog" th:fragment="modalContents">
+	<div class="modal fade" id="myRequestModal" tabindex="-1" role="dialog" th:fragment="modalContents">
 		<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">List details</h5>
-					<button type="button" class="btn-close" data-dismiss="modal"
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close">
 					</button>
 				</div>
-				<div class="modal-body" th:each="list : ${rlists}">
+				<div class="modal-body">
 					<p th:text="'List ID: ' + ${list.listId} + ', ' + ${list.remarks}" style="font-weight: bold;"></p>
                     <p th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></p>
                     <p th:if="${list.status.toString() == 'REQUESTED'}"><span class="status requested" th:text="${list.status}"></span></p>
@@ -43,41 +43,59 @@
                                 <td th:text="${item.weight} + 'KG'"><span>&nbsp;&nbsp;</span></td>
                                 <td th:text="${item.remarks}"><span>&nbsp;&nbsp;</span></td>
                             </tr>
-                    </tbody>
+                        </tbody>
                     </table>
                     <br>
 
-                <div class="reqBtn" id="reqBtn" th:if="${list.status.toString() == 'AVAILABLE'}">
-                <!-- <a th:href="@{/collect/requestList/{id}(id = ${list.listId})}"> -->
-                    <button type="button" class="btn btn-primary" th:onClick="'javascript:saveRequest(\''+${list.listId} + '\');'">Request</button>
-                <!-- </a> -->
-                </div>
+            <div class="buttons" id="buttons" style="display: inline;" th:if="${list.status.toString() == 'REQUESTED'}">
 
-					
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-sm btn-secondary"
-						data-dismiss="modal">Close</button>
-				</div>
+                <!-- <a th:href="@{/collect/requestList/{id}(id = ${list.listId})}"> -->
+                    <button type="button" id="saveBtn" class="btn btn-success" th:onClick="'javascript:confirmRequest(\''+${list.listId} + '\');'">Accept</button>
+                <!-- </a> -->
+                    <button type="button" id="rejectBtn" class="btn btn-danger" th:onClick="'javascript:rejectRequest(\''+${list.listId} + '\');'">Reject</button>
+
+                </div>
+            </div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-sm btn-secondary"
+					data-bs-dismiss="modal">Close</button>
 			</div>
-		</div>
+        </div>
 	</div>
+</div>
 </body>
 <script>
-    function changeName(){
-        var name = document.getElementById('reqBtn');
-        name.innerHTML = "<button type=\"button\" class=\"btn btn-primary\" disabled>Requested</button>"
+    function changeSaveName(){
+        var buttons = document.getElementById('buttons');
+        buttons.innerHTML = "<button type=\"button\" class=\"btn btn-success\" disabled>Confirmed</button>"
     }
 
-    function saveRequest(id){
-        changeName();
+    function changeRejectName(){
+        var buttons = document.getElementById('buttons');
+        buttons.innerHTML = "<button type=\"button\" class=\"btn btn-danger\" disabled>Rejected</button>"
+    }
+
+    function confirmRequest(id){
+        changeSaveName();
         console.log(id);
         $.ajax({
         type: "POST",
-		    url: "/collect/saveRequest?listId="+id,
+		    url: "/request/confirmRequest?listId="+id,
 		success: function(){}	
 	});
 
     }
+
+    function rejectRequest(id){
+        changeRejectName();
+        console.log(id);
+        $.ajax({
+        type: "POST",
+		    url: "/request/rejectRequest?listId="+id,
+		success: function(){}	
+	});
+    }
+
 </script>
 </html>

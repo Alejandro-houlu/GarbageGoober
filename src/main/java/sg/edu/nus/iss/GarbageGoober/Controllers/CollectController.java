@@ -12,7 +12,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.json.JsonObject;
@@ -38,6 +40,8 @@ public class CollectController {
 
     @Autowired
     CollectorInterface collectSvc;
+
+
 
     @GetMapping("/")
     public ModelAndView home(@AuthenticationPrincipal MyUserDetails userDetails){
@@ -108,7 +112,7 @@ public class CollectController {
         List<RecyclingList> rlists = collectSvc.findListByUserId(userId);
 
         rlists.stream().forEach(l -> {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FROM COLLECT CONTROLLER" + l );
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FROM REQUEST CONTROLLER" + l );
         });
 
         mav.addObject("rlists", rlists);
@@ -117,7 +121,19 @@ public class CollectController {
         return mav;
     }
 
-    //testing
+    @PostMapping("/saveRequest")
+    public ModelAndView saveRequest(@AuthenticationPrincipal MyUserDetails userDetails, @RequestParam Long listId){
+        ModelAndView mav = new ModelAndView();
+        User user = userDetails.getUser();
+        RecyclingList rList = recycleSvc.findByListId(listId).get();
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "THIS IS FROM SAVE REQUEST" + listId);
+
+        recycleSvc.saveCollectionReq(user, rList);
+
+        mav.setStatus(HttpStatus.OK);
+
+        return null;
+    }
 
 
     
