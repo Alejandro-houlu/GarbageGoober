@@ -31,7 +31,7 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2 th:text="${title}"></h2>
-                    <a th:href="@{/transaction/}" class="btn">Back</a>
+                    <a th:href="@{/transaction/}" class="btn1">Back</a>
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2 th:text="${title}"></h2>
-                    <a th:href="@{/transaction/}" class="btn">Back</a>
+                    <a th:href="@{/transaction/}" class="btn1">Back</a>
                 </div>
                 <table>
                     <thead>
@@ -59,7 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="list : ${lists}" th:onClick="'javascript:openTransactionListModal(\''+${list.listId} + '\');'">
+                        <tr th:each="list : ${lists}" th:onClick="'javascript:openListModal(\''+${list.listId} + '\');'">
                             <td th:text="${list.listId}"/>
                             <td><span class="status available" th:text="${list.recycler.username}"></span></td>
                             <td><span class="status available" th:text="${list.collector.username}"></span></td>
@@ -82,5 +82,24 @@
     </div>
 </div>
 </div>
+
+<div id="listViewHistorySection"></div>
+
+	<script>
+	function openListModal(id) {
+		
+		$.ajax({
+            type: "GET",
+			url: "/recycle/findByListId/"+id,
+			success: function(response){
+
+                $('#listViewHistorySection').html(response);
+                $('#myContactModal').modal("show");
+				
+			}
+			
+		});
+	}
+	</script>
 </body>
 </html>
