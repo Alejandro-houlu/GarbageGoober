@@ -42,14 +42,14 @@
                     and consistent behavior across browsers, consider loading using Promises
                     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
                     -->
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvWeaEpYdx0CRVg18W348eUT_ZTZl9z6w&callback=initMap&v=weekly"defer></script>
+
 
                         </div>
                     </div>
     <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
     <script type="text/javascript" th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"></script>
-
+    <script id="mapUrl" defer></script>
     <script th:inline="javascript">
 
     //Menu Toggle
@@ -60,6 +60,8 @@
     const singapore = { lat: 1.352083, lng: 103.819836 };
     const userLocation = /*[[${userLocation}]]*/ null;
     const locations = /*[[${locations}]]*/ null;
+    const mapUrl = /*[[${mapUrl}]]*/null;
+    document.getElementById('mapUrl').src = mapUrl;
     console.log(userLocation);
 
 

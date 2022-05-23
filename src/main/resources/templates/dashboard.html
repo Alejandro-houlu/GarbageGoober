@@ -20,7 +20,7 @@
             <div class="cardBox">
                 <div class="card">
                     <div>
-                        <div class="content">1,000</div>
+                        <div class="content" th:text="${recycledItems}"></div>
                         <div class="cardName">Recycled Items</div>
                     </div>
                     <div class="iconBx">
@@ -29,7 +29,7 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="content">500</div>
+                        <div class="content" th:text="${collectedItems}"></div>
                         <div class="cardName">Collected Items</div>
                     </div>
                     <div class="iconBx">
@@ -38,8 +38,8 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="content">Plastic</div>
-                        <div class="cardName">Fav material</div>
+                        <div class="content" th:text="${transactions}"></div>
+                        <div class="cardName">Transactions Completed</div>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="star-outline"></ion-icon>
@@ -47,8 +47,10 @@
                 </div>
                 <div class="card">
                     <div>
-                        <div class="content">Normie</div>
+                        <div class="content" th:text="${levelName}"></div>
                         <div class="cardName">Level</div>
+                        <label for="level"></label>
+                        <progress id="level" th:value="${progress}" max="100"></progress>
                     </div>
                     <div class="iconBx">
                         <ion-icon name="speedometer-outline"></ion-icon>

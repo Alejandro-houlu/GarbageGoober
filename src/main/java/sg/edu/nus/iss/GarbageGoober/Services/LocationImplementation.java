@@ -25,7 +25,7 @@ import sg.edu.nus.iss.GarbageGoober.Repositories.LocationRepository;
 @Service
 public class LocationImplementation implements LocationInterface{
 
-    private String apiUrl = "https://maps.googleapis.com/maps/api";
+    private String apiUrl = "https://maps.googleapis.com/maps/api"; 
 
     @Value("${OPEN_GOOGLE_MAP}")
     String apiKey;
@@ -129,6 +129,17 @@ public class LocationImplementation implements LocationInterface{
 
 
         return body;
+    }
+
+    @Override
+    public String getMapUrl() {
+        String url = UriComponentsBuilder.fromUriString(apiUrl)
+        .path("/js")
+        .queryParam("key", apiKey)
+        .queryParam("callback", "initMap")
+        .queryParam("v", "weekly")
+        .toUriString();
+        return url;
     }
     
 }

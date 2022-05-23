@@ -70,6 +70,8 @@ public class CollectController {
             locations.add(l);
         });
 
+        String mapUrl = locationSvc.getMapUrl();
+
 
 
         List<DistanceMatrix> dmList = locationSvc.getDistanceMatrix(newClosestAddList, address);
@@ -93,11 +95,14 @@ public class CollectController {
             d.getRecyclingList().stream().forEach(System.out::println);
         }
 
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MAP URL" + mapUrl);
+
         mav.addObject("user", user);
         mav.addObject("lists", list);
         mav.addObject("dmLists", dmList);
         mav.addObject("userLocation", userLocation);
         mav.addObject("locations", locations);
+        mav.addObject("mapUrl", mapUrl);
         mav.setStatus(HttpStatus.OK);
 
 

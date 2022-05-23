@@ -21,5 +21,9 @@ public interface RecycleInterface {
     public void rejectRequest(RecyclingList rlist);
     public List<RecyclingList> getDiscardList(User user);
     public List<RecyclingList> getCollectionList(User user);
+    public void confirmTransaction(RecyclingList rlist);
+    public void denyTransaction(RecyclingList rlist);
+    public List<RecyclingList> getDiscardHistory(User user);
+    public List<RecyclingList> getCollectionHistory(User user);
 
 }

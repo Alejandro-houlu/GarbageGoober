@@ -31,7 +31,7 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Awaiting Discard</h2>
-                    <!-- <a href="#" class="btn">View All</a> -->
+                    <a th:href="@{/transaction/discard/history}" class="btn">History</a>
                 </div>
                 <table>
                     <thead>
@@ -66,7 +66,7 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Awaiting Discard</h2>
-                    <!-- <a href="#" class="btn">View All</a> -->
+                    <a th:href="@{/transaction/discard/history}" class="btn">History</a>
                 </div>
                 <table>
                     <thead>
@@ -108,7 +108,7 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Collections</h2>
-                    <!-- <a href="#" class="btn">View All</a> -->
+                    <a th:href="@{collection/history}" class="btn">History</a>
                 </div>
                 <table>
                     <thead>
@@ -141,24 +141,25 @@
             <div class="recentOrders">
                 <div class="cardHeader">
                     <h2>Collections</h2>
-                    <!-- <a href="#" class="btn">View All</a> -->
+                    <a th:href="@{collection/history}" class="btn">History</a>
                 </div>
                 <table>
                     <thead>
                         <tr>
                             <td>ID</td>
-                            <td>Time created</td>
+                            <td>Recycler</td>
                             <td>Pick up Date</td>
                             <td>Collection Time</td>
-                            <td>Total Weight</td>
                             <td>No of items</td>
+                            <td>Total Weight</td>
                             <td>Status</td>
                         </tr>
                     </thead>
                     <tbody>
                             <tr th:each="list : ${collectionList}" th:onClick="'javascript:openListModal(\''+${list.listId} + '\');'">
                                 <td th:text="${list.listId}"/>
-                                <td th:text="${#strings.substring(list.created,0,16)}"/>
+                                <td><span class="status available" th:text="${list.recycler.username}"></span></td>
+                                <!-- <td th:text="${#strings.substring(list.created,0,16)}"/> -->
                                 <td th:text="${list.pickUpDate}"/>
                                 <td th:text="${#strings.substring(list.collectionTime,0,5)}"/>
                                 <td th:text="${#aggregates.sum(list.items.![#lists.size(itemId)])}"/>
@@ -204,24 +205,25 @@
 	<script>
 	function openTransactionListModal(id) {
 		
-        console.log("id")
-		// $.ajax({
-        //     type: "GET",
-		// 	url: "/request/findListById/"+id,
-		// 	success: function(response){
+        console.log(id)
+		$.ajax({
+            type: "GET",
+			url: "/transaction/findByListId/"+id,
+			success: function(response){
 
-        //         $('#listViewRequestSection').html(response);
-        //         $('#myRequestModal').modal("show");
+                $('#listViewTransactionSection').html(response);
+                $('#myTransactionModal').modal("show");
 				
-		// 	}
+			}
 			
-		// });
+		});
 	}
 	</script>
 
 	<script>
 	function openListModal(id) {
 		
+        console.log(id)
 		$.ajax({
             type: "GET",
 			url: "/recycle/findByListId/"+id,

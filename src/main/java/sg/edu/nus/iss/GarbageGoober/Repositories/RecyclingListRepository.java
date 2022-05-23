@@ -20,5 +20,6 @@ public interface RecyclingListRepository extends JpaRepository<RecyclingList, Lo
 
     public List<RecyclingList> findAllByCollectorAndStatus(User user, Enum status);
 
+
     
 }

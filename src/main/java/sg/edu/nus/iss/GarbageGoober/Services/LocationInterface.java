@@ -16,6 +16,7 @@ public interface LocationInterface {
     public Address findByUser(User user);
     public List<Address>findClosestLists(Address address, Integer distance);
     public List<DistanceMatrix> getDistanceMatrix(List<Address> closestAddresses, Address userAddress);
-    public JsonObject createJson(Address address); 
+    public JsonObject createJson(Address address);
+    public String getMapUrl(); 
     
 }

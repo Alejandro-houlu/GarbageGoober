@@ -166,6 +166,35 @@ public class RecycleImplementation implements RecycleInterface{
         return recycleRepo.findAllByCollectorAndStatus(user, Status.IN_PROGRESS);
     }
 
+    @Override
+    public void confirmTransaction(RecyclingList rlist) {
+       
+        rlist.setStatus(Status.TAKEN);
+        recycleRepo.save(rlist);
+    }
+
+    @Override
+    public void denyTransaction(RecyclingList rlist) {
+        
+        rlist.setStatus(Status.AVAILABLE);
+        rlist.setCollector(null);
+        recycleRepo.save(rlist);
+        
+    }
+
+    @Override
+    public List<RecyclingList> getDiscardHistory(User user) {
+        
+
+        return recycleRepo.findAllByRecyclerAndStatus(user, Status.TAKEN);
+    }
+
+    @Override
+    public List<RecyclingList> getCollectionHistory(User user) {
+
+        return recycleRepo.findAllByCollectorAndStatus(user, Status.TAKEN);
+    }
+
 
     
 }
