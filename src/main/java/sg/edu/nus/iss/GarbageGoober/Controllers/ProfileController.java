@@ -66,7 +66,7 @@ public class ProfileController {
             levelName = Levels.NORMIE.getLevelNames();
         }
         else if(progress >= 100 && progress < 200){
-            levelName = Levels.INTEMEDIATE.getLevelNames();
+            levelName = Levels.INTERMEDIATE.getLevelNames();
         }
         else if(progress >= 200 && progress < 300){
             levelName = Levels.CRAFTSMAN.getLevelNames();

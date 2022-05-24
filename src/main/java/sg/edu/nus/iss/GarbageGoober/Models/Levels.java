@@ -2,7 +2,7 @@ package sg.edu.nus.iss.GarbageGoober.Models;
 
 public enum Levels {
 
-    NORMIE("Normie"), INTEMEDIATE("Intemediate"), CRAFTSMAN("Craftsman");
+    NORMIE("Normie"), INTERMEDIATE("Intermediate"), CRAFTSMAN("Craftsman");
 
     private String levelNames;
 
