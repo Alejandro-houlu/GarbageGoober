@@ -28,6 +28,7 @@
                     <p th:if="${list.status.toString() == 'AVAILABLE'}"><span class="status available" th:text="${list.status}"></span></p>
                     <p th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></p>
                     <p th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></p>
+                    <p th:text="'Address: ' + ${list.recycler.address.postalCode}" style="font-weight: bold;"></p>
 					<p th:text="'Picked up date: ' + ${list.pickUpDate}"></p>
 					<p th:text="'Collection time: ' + ${#strings.substring(list.collectionTime,0,5)}"></p>
                     <table>

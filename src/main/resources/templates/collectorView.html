@@ -27,6 +27,7 @@
                     <p th:if="${list.status.toString() == 'REQUESTED'}"><span class="status requested" th:text="${list.status}"></span></p>
                     <p th:if="${list.status.toString() == 'IN_PROGRESS'}"><span class="status inprogress" th:text="${list.status}"></span></p>
                     <p th:if="${list.status.toString() == 'TAKEN'}"><span class="status taken" th:text="${list.status}"></span></p>
+                    <p th:text="'Address: ' + ${list.recycler.address.postalCode}" style="font-weight: bold;"></p>
 					<p th:text="'Picked up date: ' + ${list.pickUpDate}"></p>
 					<p th:text="'Collection time: ' + ${#strings.substring(list.collectionTime,0,5)}"></p>
                     <table>
@@ -50,15 +51,17 @@
                 <div class="reqBtn" id="reqBtn" th:if="${list.status.toString() == 'AVAILABLE'}">
                 <!-- <a th:href="@{/collect/requestList/{id}(id = ${list.listId})}"> -->
                     <button type="button" class="btn btn-primary" th:onClick="'javascript:saveRequest(\''+${list.listId} + '\');'">Request</button>
+                    <p></p>
                 <!-- </a> -->
                 </div>
 
 					
-				</div>
+				
 				<div class="modal-footer">
 					<button type="button" class="btn btn-sm btn-secondary"
 						data-dismiss="modal">Close</button>
 				</div>
+                </div>
 			</div>
 		</div>
 	</div>

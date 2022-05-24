@@ -3,6 +3,7 @@ package sg.edu.nus.iss.GarbageGoober.Controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -57,8 +58,19 @@ public class CollectController {
         Collection<RecyclingList> closestLists = new ArrayList<>();
         closestAddresses.stream().forEach(a-> closestLists.addAll(a.getRecyclingList()));
 
+        List<RecyclingList> testList = new ArrayList<>();
+
+        for(RecyclingList l : closestLists){
+
+            if(l.getStatus().toString() == "AVAILABLE"){
+                testList.add(l);
+            }
+
+        }
+
         List<Address> newClosestAddList = new ArrayList<>();
-        closestLists.stream().filter(a->check.add(a.getAddress().getAddressId())).forEach(a -> newClosestAddList.add(a.getAddress()));
+        // closestLists.stream().filter(a->check.add(a.getAddress().getAddressId())).forEach(a -> newClosestAddList.add(a.getAddress()));
+        testList.stream().filter(a->check.add(a.getAddress().getAddressId())).forEach(a -> newClosestAddList.add(a.getAddress()));
 
         //test
         newClosestAddList.stream().forEach(System.out::println);
@@ -88,12 +100,27 @@ public class CollectController {
                     rlist.addAll(a.getRecyclingList());
                 }
             }
+            Iterator<RecyclingList> it = rlist.iterator();
+            while(it.hasNext()){
+                String status = it.next().getStatus().toString();
+                if(status != "AVAILABLE")
+                it.remove();
+            }
             d.setRecyclingList(rlist);
+        }
+
+        Iterator<DistanceMatrix> it = dmList.iterator();
+        while(it.hasNext()){
+            if(it.next().getRecyclingList().size() == 0){
+                it.remove();
+            }
         }
         //test
         for(DistanceMatrix d : dmList){
             d.getRecyclingList().stream().forEach(System.out::println);
         }
+
+
 
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>MAP URL" + mapUrl);
 
@@ -116,9 +143,12 @@ public class CollectController {
 
         List<RecyclingList> rlists = collectSvc.findListByUserId(userId);
 
-        rlists.stream().forEach(l -> {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>FROM REQUEST CONTROLLER" + l );
-        });
+        Iterator<RecyclingList> it = rlists.iterator();
+        while(it.hasNext()){
+            if(it.next().getStatus().toString() != "AVAILABLE"){
+                it.remove();
+            }
+        }
 
         mav.addObject("rlists", rlists);
         mav.setStatus(HttpStatus.OK);
@@ -131,6 +161,7 @@ public class CollectController {
         ModelAndView mav = new ModelAndView();
         User user = userDetails.getUser();
         RecyclingList rList = recycleSvc.findByListId(listId).get();
+
         System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + "THIS IS FROM SAVE REQUEST" + listId);
 
         recycleSvc.saveCollectionReq(user, rList);
