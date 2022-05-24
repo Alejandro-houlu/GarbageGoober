@@ -8,8 +8,17 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import sg.edu.nus.iss.GarbageGoober.Config.MyUserDetails;
 import sg.edu.nus.iss.GarbageGoober.Models.Address;
 import sg.edu.nus.iss.GarbageGoober.Models.DistanceMatrix;
 import sg.edu.nus.iss.GarbageGoober.Models.RecyclingList;
@@ -20,6 +29,7 @@ import sg.edu.nus.iss.GarbageGoober.Services.RecycleInterface;
 import sg.edu.nus.iss.GarbageGoober.Services.UserInterface;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class GarbageGooberApplicationTests {
 
 	@Autowired
@@ -33,6 +43,9 @@ class GarbageGooberApplicationTests {
 
 	@Autowired
 	LocationInterface locationSvc;
+	
+	@Autowired
+	private MockMvc mvc;
 
 
 
@@ -156,6 +169,28 @@ class GarbageGooberApplicationTests {
 		assertTrue(add.getPostalCode() == 598742);
 	}
 
+	@Test
+	void loginInShouldPass() throws Exception{
+
+		this.mvc.perform(get("/home/login")).andDo(print()).andExpect(status().isOk());
+
+	}
+
+	@Test
+	void viewSignUpForm() throws Exception{
+
+		this.mvc.perform(get("/home/signUp")).andDo(print()).andExpect(status().isOk());
+	}
+
+
+	@Test
+	void ajaxCallsShouldPass() throws Exception{
+		this.mvc.perform(get("/request/findListById/2")).andExpect(status().isOk());
+		this.mvc.perform(get("/transaction/findByListId/2")).andExpect(status().isOk());
+		this.mvc.perform(get("/recycle/findByListId/2")).andExpect(status().isOk());
+		this.mvc.perform(get("/collect/findListByUserId/1")).andExpect(status().isOk());
+
+	}
 
 
 }
